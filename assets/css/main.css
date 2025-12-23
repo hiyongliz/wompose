@@ -1,0 +1,521 @@
+:root {
+  --bg: #1e1e1e;
+  --bg-sidebar: #252526;
+  --bg-editor: #1e1e1e;
+  --bg-input: #3c3c3c;
+  --bg-hover: #2a2d2e;
+  --bg-active: #37373d;
+  --border: #3c3c3c;
+  --text: #cccccc;
+  --text-muted: #858585;
+  --text-bright: #e7e7e7;
+  --accent: #0e639c;
+  --accent-hover: #1177bb;
+  --accent-focus: #007fd4;
+  --success: #89d185;
+  --error: #f48771;
+  --warning: #cca700;
+  --link: #3794ff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, Ubuntu, 'Droid Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.4;
+  font-size: 13px;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Header - VS Code title bar style */
+.header {
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+  flex-shrink: 0;
+  height: 35px;
+  display: flex;
+  align-items: center;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  flex-direction: row;
+  padding: 0 8px;
+  width: 100%;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.logo svg {
+  width: 16px;
+  height: 16px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.1s;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.nav-links svg {
+  display: block;
+}
+
+/* Main Layout */
+.main {
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.editor-layout {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+}
+
+.editor-layout.resizing {
+  user-select: none;
+  cursor: col-resize;
+}
+
+@media (max-width: 1024px) {
+  .editor-layout {
+    flex-direction: column;
+  }
+  .editor-layout .panel {
+    width: 100% !important;
+  }
+  .resize-handle {
+    display: none;
+  }
+}
+
+/* Resize Handle */
+.resize-handle {
+  width: 4px;
+  background: var(--border);
+  cursor: col-resize;
+  flex-shrink: 0;
+  transition: background 0.1s;
+}
+
+.resize-handle:hover,
+.editor-layout.resizing .resize-handle {
+  background: var(--accent);
+}
+
+/* Panels - VS Code editor group style */
+.panel {
+  background: var(--bg-editor);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  height: 35px;
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.panel-title {
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.panel-body {
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* Editor */
+.editor-wrapper {
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.editor-wrapper textarea {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-editor);
+  border: none;
+  color: var(--text);
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  padding: 8px;
+  resize: none;
+  outline: none;
+}
+
+/* Options Panel - VS Code toolbar style */
+.options-bar {
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border);
+  padding: 6px 12px;
+  flex-shrink: 0;
+}
+
+.options-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.option-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.option-group label {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.option-group select,
+.option-group input[type="number"] {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--text);
+  padding: 3px 8px;
+  font-size: 12px;
+  min-width: 120px;
+  height: 26px;
+}
+
+.option-group input[type="number"] {
+  min-width: 55px;
+  width: 55px;
+}
+
+.option-group select:focus,
+.option-group input:focus {
+  outline: none;
+  border-color: var(--accent-focus);
+}
+
+/* Buttons - VS Code button style */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.1s;
+  border: none;
+  white-space: nowrap;
+  height: 26px;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-hover);
+}
+
+.btn-sm {
+  padding: 3px 10px;
+  font-size: 11px;
+  height: 22px;
+}
+
+.btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Status Messages - VS Code notification style */
+.status {
+  padding: 6px 10px;
+  font-size: 12px;
+  margin: 4px 8px;
+  flex-shrink: 0;
+  border-left: 3px solid;
+  background: var(--bg-sidebar);
+}
+
+.status-success {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.status-error {
+  border-color: var(--error);
+  color: var(--error);
+}
+
+/* Footer - VS Code status bar style */
+.footer {
+  background: var(--accent);
+  padding: 0 8px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* Checkbox - VS Code style */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--accent);
+  margin: 0;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 16px;
+}
+
+.empty-state svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 8px;
+  opacity: 0.3;
+}
+
+.empty-state p {
+  font-size: 13px;
+}
+
+/* Accordion - VS Code explorer style */
+.accordion-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.accordion-item.expanded {
+  flex-shrink: 1;
+  flex-grow: 1;
+  min-height: 60px;
+}
+
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  height: 22px;
+  background: var(--bg-sidebar);
+  cursor: pointer;
+  transition: background 0.1s;
+  flex-shrink: 0;
+}
+
+.accordion-header:hover {
+  background: var(--bg-hover);
+}
+
+.accordion-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.accordion-arrow {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.1s;
+  color: var(--text-muted);
+}
+
+.accordion-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+.file-kind {
+  background: var(--accent);
+  color: white;
+  padding: 1px 4px;
+  border-radius: 2px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.file-name {
+  font-size: 12px;
+  color: var(--text);
+}
+
+.accordion-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.accordion-content {
+  flex: 0;
+  overflow: hidden;
+  display: none;
+}
+
+.accordion-content.expanded {
+  flex: 1;
+  overflow: hidden;
+  display: block;
+  min-height: 0;
+}
+
+.accordion-content pre {
+  padding: 8px;
+  margin: 0;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  background: var(--bg-editor);
+}
+
+/* Divider */
+.divider {
+  width: 1px;
+  height: 16px;
+  background: var(--border);
+  margin: 0 4px;
+}
+
+/* Output content */
+.output-content {
+  background: var(--bg-editor);
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Vertical Resize Handle */
+.vertical-resize-handle {
+  height: 4px;
+  background: var(--border);
+  cursor: row-resize;
+  flex-shrink: 0;
+  transition: background 0.1s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.vertical-resize-handle:hover,
+.accordion-list.vertical-resizing .vertical-resize-handle {
+  background: var(--accent);
+}
+
+.accordion-list.vertical-resizing {
+  user-select: none;
+  cursor: row-resize;
+}
